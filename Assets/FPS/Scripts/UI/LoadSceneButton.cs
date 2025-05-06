@@ -9,7 +9,13 @@ namespace Unity.FPS.UI
     {
         public string SceneName = "";
 
-        void Update()
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                SceneManager.LoadScene(SceneName);
+        }
+
+        /*void Update()
         {
             if (EventSystem.current.currentSelectedGameObject == gameObject
                 && Input.GetButtonDown(GameConstants.k_ButtonNameSubmit))
@@ -21,6 +27,6 @@ namespace Unity.FPS.UI
         public void LoadTargetScene()
         {
             SceneManager.LoadScene(SceneName);
-        }
+        }*/
     }
 }
