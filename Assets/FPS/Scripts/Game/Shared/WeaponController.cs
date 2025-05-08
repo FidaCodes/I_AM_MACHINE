@@ -163,6 +163,16 @@ namespace Unity.FPS.Game
 
         private Queue<Rigidbody> m_PhysicalAmmoPool;
 
+        float m_DamageMultiplier = 1f;
+        float m_BuffEndTime = 0f;
+        public float GetDamageMultiplier() => m_DamageMultiplier;
+
+        public void ApplyDamageBuff(float multiplier, float duration)
+        {
+            m_DamageMultiplier = multiplier;
+            m_BuffEndTime = Time.time + duration;
+        }
+
         void Awake()
         {
             m_CurrentAmmo = MaxAmmo;
@@ -244,6 +254,11 @@ namespace Unity.FPS.Game
             {
                 MuzzleWorldVelocity = (WeaponMuzzle.position - m_LastMuzzlePosition) / Time.deltaTime;
                 m_LastMuzzlePosition = WeaponMuzzle.position;
+            }
+
+            if (Time.time > m_BuffEndTime)
+            {
+                m_DamageMultiplier = 1f;
             }
         }
 
